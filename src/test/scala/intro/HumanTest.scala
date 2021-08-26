@@ -6,7 +6,7 @@ import org.junit.Test
 class HumanTest {
 
   @Test
-  def testSquareRoot(): Unit ={
+  def testHuman(): Unit ={
     val p = new Human("Alex", 39)
     assertEquals(p.name, "Alex")
     assertEquals(p.age, 39)
