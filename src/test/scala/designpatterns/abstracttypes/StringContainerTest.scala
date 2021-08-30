@@ -3,7 +3,7 @@ package designpatterns.abstracttypes
 import org.junit.Assert.{assertFalse, assertTrue}
 import org.junit.Test
 
-class AbstractTypesTest {
+class StringContainerTest {
 
   @Test
   def testStringContainerWhenGivenStringIsTrue(): Unit = {
