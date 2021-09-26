@@ -13,6 +13,6 @@ class TupleTest {
     assertEquals(t.toString(), "(Hello,1,2.3)")
     assertEquals(t._1, "Hello")
     assertEquals(t._2, 1)
-    assertEquals(t._3, 2.3)
+    assertEquals(t._3, 2.3, 0.0)
   }
 }
