@@ -10,5 +10,7 @@ lazy val root = project
 
     libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test",
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.9",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test",
+      libraryDependencies += "org.scalameta" %% "munit" % "0.7.26" % Test,
+    libraryDependencies += "org.scalameta" %% "munit-scalacheck" % "0.7.26" % Test,
   )
