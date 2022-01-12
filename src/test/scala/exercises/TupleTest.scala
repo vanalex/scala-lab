@@ -19,4 +19,10 @@ class TupleTest extends AnyFlatSpec with Matchers {
     value1 should be("a")
     value2 should be(2)
   }
+
+  it should("tuple can have different types") in {
+    val tuple4 = ("a", 1, 2.2, "five")
+    tuple4._1 should be("a")
+    tuple4._3 should be(2.2)
+  }
 }
