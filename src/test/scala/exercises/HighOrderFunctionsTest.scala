@@ -15,6 +15,10 @@ class HighOrderFunctionsTest extends AnyFlatSpec with Matchers {
 
   def lambda5(x: Int) = x + 1
 
+  def lambda6 = (x: Int) => x + 1
+
+  def multiplier = (i: Int) => i * 10
+
   it should "test simple high order function" in {
     val result = lambda(3)
     val result1andhalf = lambda.apply(5)
@@ -30,6 +34,12 @@ class HighOrderFunctionsTest extends AnyFlatSpec with Matchers {
     result3 should be(6)
     result4 should be(2)
     result5 should be(4)
+
+    val result6 = lambda6(10)
+    result6 should be(11)
+
+    val resultMultiplier = multiplier(10)
+    resultMultiplier should be (100)
   }
 
 }
