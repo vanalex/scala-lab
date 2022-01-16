@@ -2,6 +2,7 @@ package exercises
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import standard.HighOrderFunctionUtil.{addWithoutSyntaxSugar, fiveAdder, makeUpper, makeWhatEverYouLike}
 
 class HighOrderFunctionsTest extends AnyFlatSpec with Matchers {
 
@@ -40,6 +41,22 @@ class HighOrderFunctionsTest extends AnyFlatSpec with Matchers {
 
     val resultMultiplier = multiplier(10)
     resultMultiplier should be (100)
+  }
+
+  it should "test high order function return another high order function" in {
+    addWithoutSyntaxSugar(1).isInstanceOf[Function1[Int, Int]] should be(true)
+    addWithoutSyntaxSugar(2)(3) should be(5)
+    fiveAdder(5) should be(10)
+
+    makeUpper(List("abc", "xyz", "123")) should be(List("ABC", "XYZ", "123"))
+
+    makeWhatEverYouLike(List("ABC", "XYZ", "123"), x => x.toLowerCase) should be(List("abc", "xyz", "123"))
+
+    //using it inline
+    val myName = (name: String) => s"My name is $name"
+    makeWhatEverYouLike(List("John", "Mark"), myName) should be(List("My name is John", "My name is Mark"))
+
+    List("Scala", "Erlang", "Clojure") map (_.length) should be(List(5, 6, 7))
   }
 
 }
