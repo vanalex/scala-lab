@@ -52,4 +52,30 @@ class ListTest extends AnyFlatSpec with Matchers{
     a should equal(List(1, 3, 5, 7, 9))
     b should equal(List(1, 3, 7, 9))
   }
+
+  it should("test Lists utilities") in {
+    val a = List(1, 3, 5, 7, 9)
+
+    // get the length of the list
+    a.length should equal(5)
+
+    // reverse the list
+    a.reverse should equal(List(9, 7, 5, 3, 1))
+
+    // map a function to double the numbers over the list
+    a.map { v =>v * 2} should equal(List(2, 6, 10, 14, 18))
+
+    // filter any values divisible by 3 in the list
+    a.filter { v =>v % 3 == 0} should equal(List(3, 9))
+
+    val b = List(1, 2, 3)
+
+    b.map {_ * 2} should equal(List(2, 4, 6))
+
+    b.filter {_ % 2 == 0} should equal(List(2))
+
+    val c = List(1, 2, 3)
+    c.map(_ * 2) should equal(List(2, 4, 6))
+    c.filter(_ % 2 != 0) should equal(List(1, 3))
+  }
 }
