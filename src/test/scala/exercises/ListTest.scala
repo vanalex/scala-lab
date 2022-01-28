@@ -78,4 +78,10 @@ class ListTest extends AnyFlatSpec with Matchers{
     c.map(_ * 2) should equal(List(2, 4, 6))
     c.filter(_ % 2 != 0) should equal(List(1, 3))
   }
+
+  it should("Functions over list can use _ as shorthand") in {
+    val a = List(1, 2, 3)
+    a.map {_ * 2} should equal(List(2, 4, 6))
+    a.filter {_ % 2 == 0} should equal(List(2))
+  }
 }
