@@ -90,4 +90,38 @@ class ListTest extends AnyFlatSpec with Matchers{
     a.map(_ * 2) should equal(List(2, 4, 6))
     a.filter(_ % 2 != 0) should equal(List(1, 3))
   }
+
+  it should("Lists can be reduced with a mathematical operation:") in {
+    val a = List(1, 3, 5, 7)
+    a.reduceLeft(_ + _) should equal(16)
+    a.reduceLeft(_ * _) should equal(105)
+  }
+
+  it should("foldLeft is like reduce, but with an explicit starting value:") in {
+    val a = List(1, 3, 5, 7)
+    // NOTE: foldLeft uses a form called currying that we will explore later
+    a.foldLeft(0)(_ + _) should equal(16)
+    a.foldLeft(10)(_ + _) should equal(26)
+    a.foldLeft(1)(_ * _) should equal(105)
+    a.foldLeft(0)(_ * _) should equal(0)
+  }
+
+  it should("create list from a range") in {
+    val a = (1 to 5).toList
+    a should be(List(1, 2, 3, 4, 5))
+  }
+
+  it should ("You can prepend elements to a List to get a new List:") in {
+    val a = List(1, 3, 5, 7)
+    0 :: a should be(List(0, 1, 3, 5, 7))
+  }
+
+  it should ("Lists can be concatened and Nil is an empty List:") in {
+
+    val head = List(1, 3)
+    val tail = List(5, 7)
+
+    head ::: tail should be(List(1, 3, 5, 7))
+    head ::: Nil should be(List(1, 3))
+  }
 }
