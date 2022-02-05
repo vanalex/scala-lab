@@ -38,4 +38,17 @@ class MapTest extends AnyFlatSpec with Matchers {
     myMap("MI") should be("Michigan")
     myMap("IA") should be("Iowa")
   }
+
+  it should "test insertion repeated element" in {
+    val myMap = Map("MI" -> "Michigan", "OH" -> "Ohio", "WI" -> "Wisconsin", "MI" -> "Meechigan")
+    val mapValues = myMap.values
+    mapValues.size should be(3)
+    myMap("MI") should be("Meechigan")
+  }
+
+  it should "test map keys may be of mixed type:" in {
+    val myMap = Map("Ann Arbor" -> "MI", 49931 -> "MI")
+    myMap("Ann Arbor") should be("MI")
+    myMap(49931) should be("MI")
+  }
 }
