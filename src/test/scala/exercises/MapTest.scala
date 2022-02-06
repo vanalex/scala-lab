@@ -51,4 +51,58 @@ class MapTest extends AnyFlatSpec with Matchers {
     myMap("Ann Arbor") should be("MI")
     myMap(49931) should be("MI")
   }
+
+  it should "test missing keys" in {
+    val myMap =
+      Map("MI" -> "Michigan", "OH" -> "Ohio", "WI" -> "Wisconsin", "IA" -> "Iowa")
+    intercept[NoSuchElementException] {
+      myMap("TX")
+    }
+    myMap.getOrElse("TX", "missing data") should be("missing data")
+
+    val myMap2 =
+      Map(
+        "MI" -> "Michigan",
+        "OH" -> "Ohio",
+        "WI" -> "Wisconsin",
+        "IA" -> "Iowa") withDefaultValue "missing data"
+    myMap2("TX") should be("missing data")
+  }
+
+  it should "test map elements can be removed easily" in {
+    val myMap = Map("MI" -> "Michigan", "OH" -> "Ohio", "WI" -> "Wisconsin", "IA" -> "Iowa")
+    val aNewMap = myMap - "MI"
+    aNewMap.contains("MI") should be(false)
+    myMap.contains("MI") should be(true)
+  }
+
+  it should "test map elements can be removed in multiple " in {
+    val myMap =
+      Map("MI" -> "Michigan", "OH" -> "Ohio", "WI" -> "Wisconsin", "IA" -> "Iowa")
+    val aNewMap = myMap -- List("MI", "OH")
+
+    aNewMap.contains("MI") should be(false)
+    myMap.contains("MI") should be(true)
+
+    aNewMap.contains("WI") should be(true)
+    aNewMap.size should be(2)
+    myMap.size should be(4)
+  }
+
+  it should "test emoval of nonexistent elements from a map is handled gracefully" in {
+    val myMap =
+      Map("MI" -> "Michigan", "OH" -> "Ohio", "WI" -> "Wisconsin", "IA" -> "Iowa")
+    val aNewMap = myMap - "MN"
+
+    aNewMap.equals(myMap) should be(true)
+  }
+
+  it should "test Map equivalency is independent of order" in {
+    val myMap1 =
+      Map("MI" -> "Michigan", "OH" -> "Ohio", "WI" -> "Wisconsin", "IA" -> "Iowa")
+    val myMap2 =
+      Map("WI" -> "Wisconsin", "MI" -> "Michigan", "IA" -> "Iowa", "OH" -> "Ohio")
+
+    myMap1.equals(myMap2) should be(true)
+  }
 }
