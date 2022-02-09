@@ -29,4 +29,11 @@ class SetTest extends AnyFlatSpec with Matchers{
     mySet.contains(12) should be(true)
     mySet.contains("MI") should be(false)
   }
+
+  it should "test sets can be checked for member existence:" in {
+    val mySet = Set("Michigan", "Ohio", 12)
+
+    mySet(12) should be(true)
+    mySet("MI") should be(false)
+  }
 }
