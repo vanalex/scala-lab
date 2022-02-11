@@ -36,4 +36,28 @@ class SetTest extends AnyFlatSpec with Matchers{
     mySet(12) should be(true)
     mySet("MI") should be(false)
   }
+
+  it should "test elements can be removed easily" in {
+    val mySet = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val aNewSet = mySet - "Michigan"
+
+    aNewSet.contains("Michigan") should be(false)
+    mySet.contains("Michigan") should be(true)
+  }
+
+  it should "test elements can be removed in multiple" in {
+    val mySet = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val aNewSet = mySet -- List("Michigan", "Ohio")
+
+    aNewSet.contains("Michigan") should be(false)
+    aNewSet.contains("Wisconsin") should be(true)
+    aNewSet.size should be(2)
+  }
+
+  it should "test attempt removing non existing elements should be handled gracefully" in {
+    val mySet = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val aNewSet = mySet - "Minnesota"
+
+    aNewSet.equals(mySet) should be(true)
+  }
 }
