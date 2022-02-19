@@ -60,4 +60,47 @@ class SetTest extends AnyFlatSpec with Matchers{
 
     aNewSet.equals(mySet) should be(true)
   }
+
+  it should "test set can be intersected easily" in {
+    val mySet1 = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val mySet2 = Set("Wisconsin", "Michigan", "Minnesota")
+    val aNewSet = mySet1 intersect mySet2 // NOTE: You can use the "&" operator
+
+    aNewSet.equals(Set("Michigan", "Wisconsin")) should be(true)
+  }
+
+  it should "test Two sets can be joined as their union easily" in {
+    val mySet1 = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val mySet2 = Set("Wisconsin", "Michigan", "Minnesota")
+    val aNewSet = mySet1 union mySet2 // NOTE: You can also use the "|" operator
+
+    aNewSet.equals(Set("Michigan", "Wisconsin", "Ohio", "Iowa", "Minnesota")) should be(true)
+  }
+
+  it should "test A set is either a subset of another set or it isn't" in {
+
+    val mySet1 = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val mySet2 = Set("Wisconsin", "Michigan", "Minnesota")
+    val mySet3 = Set("Wisconsin", "Michigan")
+
+    mySet2 subsetOf mySet1 should be(false)
+    mySet3 subsetOf mySet1 should be(true)
+  }
+
+  it should "test The difference between two sets can be obtained easily" in {
+
+    val mySet1 = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val mySet2 = Set("Wisconsin", "Michigan")
+    val aNewSet = mySet1 diff mySet2 // Note: you can use the "&~" operator if you *really* want to.
+
+    aNewSet.equals(Set("Ohio", "Iowa")) should be(true)
+  }
+
+  it should "test Set equivalency is independent of order" in {
+
+    val mySet1 = Set("Michigan", "Ohio", "Wisconsin", "Iowa")
+    val mySet2 = Set("Wisconsin", "Michigan", "Ohio", "Iowa")
+
+    mySet1.equals(mySet2) should be(true)
+  }
 }
