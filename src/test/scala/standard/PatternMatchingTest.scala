@@ -26,4 +26,29 @@ class PatternMatchingTest extends AnyFlatSpec with Matchers{
 
     myStuff should be(2)
   }
+
+  it should "test pattern matching can return multiple values" in {
+    val stuff = "blue"
+
+    val myStuff = stuff match {
+      case "red" => (255, 0, 0)
+      case "green" => (0, 255, 0)
+      case "blue" => (0, 0, 255)
+      case _ => println(stuff); 0
+    }
+
+    myStuff should be((0, 0, 255))
+  }
+
+  it should "test pattern matching can match complex values" in {
+    def goldilocks(expr: Any) =
+      expr match {
+        case ("porridge", "Papa") => "Papa eating porridge"
+        case ("porridge", "Mama") => "Mama eating porridge"
+        case ("porridge", "Baby") => "Baby eating porridge"
+        case _ => "what?"
+      }
+
+    goldilocks(("porridge", "Mama")) should be("Mama eating porridge")
+  }
 }
