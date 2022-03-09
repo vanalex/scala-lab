@@ -51,4 +51,17 @@ class PatternMatchingTest extends AnyFlatSpec with Matchers{
 
     goldilocks(("porridge", "Mama")) should be("Mama eating porridge")
   }
+
+  it should "test pattern matching can wildcard parts of expressions" in {
+    def goldilocks(expr: Any) =
+      expr match {
+        case ("porridge", _) => "eating"
+        case ("chair", "Mama") => "sitting"
+        case ("bed", "Baby") => "sleeping"
+        case _ => "what?"
+      }
+
+    goldilocks(("porridge", "Papa")) should be("eating")
+    goldilocks(("chair", "Mama")) should be("sitting")
+  }
 }
