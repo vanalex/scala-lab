@@ -64,4 +64,35 @@ class PatternMatchingTest extends AnyFlatSpec with Matchers{
     goldilocks(("porridge", "Papa")) should be("eating")
     goldilocks(("chair", "Mama")) should be("sitting")
   }
+
+  it should "test Pattern matching can substitute parts of expressions" in {
+    def goldilocks(expr: (String, String)) =
+      expr match {
+        case ("porridge", bear) =>
+          bear + " said someone's been eating my porridge"
+        case ("chair", bear) => bear + " said someone's been sitting in my chair"
+        case ("bed", bear) => bear + " said someone's been sleeping in my bed"
+        case _ => "what?"
+      }
+
+    goldilocks(("porridge", "Papa")) should be("Papa said someone's been eating my porridge")
+    goldilocks(("chair", "Mama")) should be("Mama said someone's been sitting in my chair")
+  }
+
+  it should "test A backquote can be used to refer to a stable variable in scope to create a case statement - this prevents \"variable shadowing\"" in {
+    val foodItem = "porridge"
+
+    def goldilocks(expr: (String, String)) =
+      expr match {
+        case (`foodItem`, _) => "eating"
+        case ("chair", "Mama") => "sitting"
+        case ("bed", "Baby") => "sleeping"
+        case _ => "what?"
+      }
+
+    goldilocks(("porridge", "Papa")) should be("eating")
+    goldilocks(("chair", "Mama")) should be("sitting")
+    goldilocks(("porridge", "Cousin")) should be("eating")
+    goldilocks(("beer", "Cousin")) should be("what?")
+  }
 }
