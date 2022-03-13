@@ -95,4 +95,24 @@ class PatternMatchingTest extends AnyFlatSpec with Matchers{
     goldilocks(("porridge", "Cousin")) should be("eating")
     goldilocks(("beer", "Cousin")) should be("what?")
   }
+
+  it should "test A backquote can be used to refer to a method parameter as a stable variable to create a case statement:" in {
+    def patternEquals(i: Int, j: Int) =
+      j match {
+        case `i` => true
+        case _ => false
+      }
+    patternEquals(3, 3) should be(true)
+    patternEquals(7, 9) should be(false)
+    patternEquals(9, 9) should be(true)
+  }
+
+  it should "test To pattern match against a List, the list can be split into parts, in this case the head x and the tail xs. Since the case doesn't terminate in Nil, xs is interpreted as the rest of the list:" in {
+    val secondElement = List(1, 2, 3) match {
+      case x :: xs => xs.head
+      case _ => 0
+    }
+
+    secondElement should be(2)
+  }
 }
