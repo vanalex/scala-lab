@@ -3,7 +3,7 @@ package standard
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class PatternMatchingTest extends AnyFlatSpec with Matchers{
+class PatternMatchingTest extends AnyFlatSpec with Matchers {
 
   it should "test simple pattern mathcing" in {
     var result = PatternMatchingUtil.matchTest(3);
@@ -102,6 +102,7 @@ class PatternMatchingTest extends AnyFlatSpec with Matchers{
         case `i` => true
         case _ => false
       }
+
     patternEquals(3, 3) should be(true)
     patternEquals(7, 9) should be(false)
     patternEquals(9, 9) should be(true)
@@ -114,5 +115,44 @@ class PatternMatchingTest extends AnyFlatSpec with Matchers{
     }
 
     secondElement should be(2)
+  }
+
+  it should "test To obtain the second element you can expand on the pattern. Where x is the first element, y is the second element, and xs is the rest:" in {
+
+    val secondElement = List(1, 2, 3) match {
+      case x :: y :: xs => y
+      case _ => 0
+    }
+
+    secondElement should be(2)
+  }
+
+  it should "test Same koan as above, but we are pattern matching a list with only one item!" in {
+    val secondElement = List(1) match {
+      case x :: y :: xs => y // only matches a list with two or more items
+      case _ => 0
+    }
+
+    secondElement should be(0)
+  }
+
+  it should "To pattern match against List, you can also establish a pattern match if you know the exact number of elements in a List" in {
+
+    val r = List(1, 2, 3) match {
+      case x :: y :: Nil => y // only matches a list with exactly two items
+      case _ => 0
+    }
+
+    r should be(0)
+  }
+
+  it should "If a pattern is exactly one element longer than a List, it extracts the final Nil" in {
+
+    val r = List(1, 2, 3) match {
+      case x :: y :: z :: tail => tail
+      case _ => 0
+    }
+
+    r == Nil should be(true)
   }
 }
