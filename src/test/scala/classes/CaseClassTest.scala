@@ -36,4 +36,17 @@ class CaseClassTest extends AnyFlatSpec with Matchers{
     (d1 == d2) should be(false)
     (d2 == d3) should be(false)
   }
+
+  it should "test Case classes have a convenient toString method defined" in {
+    val d1 = Dog("Scooby", "Doberman")
+
+    d1.toString should be("Dog(Scooby,Doberman)")
+  }
+
+  it should "test Case classes have automatic properties" in {
+    val d1 = Dog("Scooby", "Doberman")
+
+    d1.name should be("Scooby")
+    d1.breed should be("Doberman")
+  }
 }
