@@ -49,4 +49,17 @@ class CaseClassTest extends AnyFlatSpec with Matchers{
     d1.name should be("Scooby")
     d1.breed should be("Doberman")
   }
+
+  case class Dog(var name: String, breed: String) // you can rename a dog, but change its breed? nah!
+  it should "test Case classes can have mutable properties" in {
+    val d1 = Dog("Scooby", "Doberman")
+
+    d1.name should be("Scooby")
+    d1.breed should be("Doberman")
+
+    d1.name = "Scooby Doo" // but is it a good idea?
+
+    d1.name should be("Scooby Doo")
+    d1.breed should be("Doberman")
+  }
 }
