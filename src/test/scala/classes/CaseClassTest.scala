@@ -62,4 +62,41 @@ class CaseClassTest extends AnyFlatSpec with Matchers{
     d1.name should be("Scooby Doo")
     d1.breed should be("Doberman")
   }
+
+  it should "alternatives for altering case classes" in {
+    case class Dog(name: String, breed: String) // Doberman
+    val d1 = Dog("Scooby", "Doberman")
+    val d2 = d1.copy(name = "Scooby Doo") // copy the case class but change the name in the copy
+
+    d1.name should be("Scooby") // original left alone
+    d1.breed should be("Doberman")
+
+    d2.name should be("Scooby Doo")
+    d2.breed should be("Doberman")
+  }
+
+  it should "Case classes can have default and named parameters" in {
+    case class Person(first: String, last: String, age: Int = 0, ssn: String = "")
+    val p1 = Person("Fred", "Jones", 23, "111-22-3333")
+    val p2 = Person("Samantha", "Jones") // note missing age and ssn
+    val p3 = Person(last = "Jones", first = "Fred", ssn = "111-22-3333") // note the order can change, and missing age
+    val p4 = p3.copy(age = 23)
+
+    p1.first should be("Fred")
+    p1.last should be("Jones")
+    p1.age should be(23)
+    p1.ssn should be("111-22-3333")
+
+    p2.first should be("Samantha")
+    p2.last should be("Jones")
+    p2.age should be(0)
+    p2.ssn should be("")
+
+    p3.first should be("Fred")
+    p3.last should be("Jones")
+    p3.age should be(0)
+    p3.ssn should be("111-22-3333")
+
+    (p1 == p4) should be(true)
+  }
 }
