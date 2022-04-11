@@ -99,4 +99,28 @@ class CaseClassTest extends AnyFlatSpec with Matchers{
 
     (p1 == p4) should be(true)
   }
+
+  it should "Case classes can be disassembled to their constituent parts as a tuple" in {
+    case class Person(first: String, last: String, age: Int = 0, ssn: String = "")
+    val p1 = Person("Fred", "Jones", 23, "111-22-3333")
+
+    val parts = Person.unapply(p1)
+
+    parts._1 should be("Fred")
+    parts._2 should be("Jones")
+    parts._3 should be(23)
+    parts._4 should be("111-22-3333")
+  }
+
+  it should "Case classes are Serializable" in {
+    case class PersonCC(firstName: String, lastName: String)
+    val indy = PersonCC("Indiana", "Jones")
+
+    indy.isInstanceOf[Serializable] should be(true)
+
+    class Person(firstName: String, lastName: String)
+    val junior = new Person("Indiana", "Jones")
+
+    junior.isInstanceOf[Serializable] should be(false)
+  }
 }
