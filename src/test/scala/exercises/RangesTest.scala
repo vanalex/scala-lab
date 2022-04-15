@@ -31,4 +31,16 @@ class RangesTest extends AnyFlatSpec with Matchers{
     second should be(5)
     last should be(8)
   }
+
+  it should "A range does not include its upper bound, even in a step increment" in {
+    val someNumbers = Range(0, 34, 2)
+    someNumbers.contains(33) should be(false)
+    someNumbers.contains(32) should be(true)
+    someNumbers.contains(34) should be(false)
+  }
+
+  it should "Range can specify to include its upper bound value" in {
+    val someNumbers = Range(0, 34).inclusive
+    someNumbers.contains(34) should be(true)
+  }
 }
